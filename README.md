@@ -43,12 +43,12 @@ Objetivos:
 Respuesta: Es la capacidad de un robot para adquirir, interpretar y utilizar datos sensoriales del entorno. Es fundamental porque permite la toma de decisiones y la interacción autónoma con el entorno.
 
 
-3. En el sensor ultrasónico HC-SR04, ¿qué parámetro se mide para calcular la distancia?
+2. En el sensor ultrasónico HC-SR04, ¿qué parámetro se mide para calcular la distancia?
    
 Respuesta: El tiempo que tarda el eco del pulso ultrasónico en regresar al sensor.
 
 
-5. ¿Cómo influye el ruido en las mediciones del sensor ultrasónico y cómo podría reducirse?
+3. ¿Cómo influye el ruido en las mediciones del sensor ultrasónico y cómo podría reducirse?
 
 Respuesta: El ruido puede generar lecturas erróneas por ecos falsos o interferencias. Puede reducirse con filtrado de señales, promediado de lecturas y uso de algoritmos de detección de outliers.
 
