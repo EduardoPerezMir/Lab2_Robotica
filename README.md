@@ -39,13 +39,19 @@ Objetivos:
 
 ## Preguntas Resueltas Parte 1
 1. ¿Qué es la percepción en robótica y por qué es fundamental en los sistemas autónomos?
-R: Es la capacidad de un robot para adquirir, interpretar y utilizar datos sensoriales del entorno. Es fundamental porque permite la toma de decisiones y la interacción autónoma con el entorno.
 
-2. En el sensor ultrasónico HC-SR04, ¿qué parámetro se mide para calcular la distancia?
-R: El tiempo que tarda el eco del pulso ultrasónico en regresar al sensor.
+Respuesta: Es la capacidad de un robot para adquirir, interpretar y utilizar datos sensoriales del entorno. Es fundamental porque permite la toma de decisiones y la interacción autónoma con el entorno.
 
-3. ¿Cómo influye el ruido en las mediciones del sensor ultrasónico y cómo podría reducirse?
-R: El ruido puede generar lecturas erróneas por ecos falsos o interferencias. Puede reducirse con filtrado de señales, promediado de lecturas y uso de algoritmos de detección de outliers.
+
+3. En el sensor ultrasónico HC-SR04, ¿qué parámetro se mide para calcular la distancia?
+   
+Respuesta: El tiempo que tarda el eco del pulso ultrasónico en regresar al sensor.
+
+
+5. ¿Cómo influye el ruido en las mediciones del sensor ultrasónico y cómo podría reducirse?
+
+Respuesta: El ruido puede generar lecturas erróneas por ecos falsos o interferencias. Puede reducirse con filtrado de señales, promediado de lecturas y uso de algoritmos de detección de outliers.
+
 
 ---
 
@@ -55,16 +61,24 @@ R: El ruido puede generar lecturas erróneas por ecos falsos o interferencias. P
 
 ## Preguntas Resueltas Parte 2
 1. Si el robot detecta el color rojo en el suelo, ¿qué acción debería tomar? ¿Por qué?
-R: Debería detenerse o cambiar de dirección, ya que el rojo puede indicar peligro o zona prohibida.
+
+Respuesta: Debería detenerse o cambiar de dirección, ya que el rojo puede indicar peligro o zona prohibida.
+
 
 2. Si el sensor ultrasónico detecta valores erráticos, ¿qué estrategias podrías aplicar para mejorar la precisión?
-R: Promediado de lecturas, filtrado Kalman o media móvil, y verificación con sensores redundantes.
+
+Respuesta: Promediado de lecturas, filtrado Kalman o media móvil, y verificación con sensores redundantes.
+
 
 3. Si tuvieras que integrar un nuevo sensor para mejorar la navegación del robot, ¿cuál elegirías y por qué?
-R: Un sensor LiDAR por su alta precisión espacial y capacidad de mapear entornos en 2D/3D.
+
+Respuesta: Un sensor LiDAR por su alta precisión espacial y capacidad de mapear entornos en 2D/3D.
+
 
 4. ¿Cuál es el tiempo de respuesta del robot al detectar un cambio de color?
-R: Depende del microcontrolador, pero típicamente entre 10–100 ms.
+
+Respuesta: Depende del microcontrolador, pero típicamente entre 10–100 ms.
+
 
 ---
 
