@@ -127,7 +127,96 @@ Link del video de prueba: https://www.youtube.com/shorts/BfJy00ZlzRA
 
 ### 4. Analizar la precisión de los sensores en diferentes condiciones (luz, superficie, distancia).
 
+## Calibración y Pruebas del Sensor Ultrasónico
 
+Durante la calibración del sensor ultrasónico **HC-SR04**, se realizaron pruebas de medición a distintas distancias conocidas: **25 cm**, **50 cm**, **75 cm** y **100 cm**. Para cada una de estas distancias se tomaron lecturas sin aplicar ningún tipo de corrección, obteniéndose los siguientes resultados:
+
+| Distancia real (cm) | Medición sin corrección (cm) |
+|---------------------|------------------------------|
+| 25                  | 23.80                        |
+| 50                  | 48.10                        |
+| 75                  | 71.50                        |
+| 100                 | 97.58                        |
+
+Como se puede observar, las mediciones presentan un **error pequeño pero sistemático**, con una ligera subestimación de la distancia real. Por esta razón, se decidió mejorar la precisión implementando un promedio de **10 mediciones consecutivas**, descartando valores inválidos o fuera de rango. Además, se aplicó una **corrección fija de +2 cm** a cada lectura para compensar el sesgo identificado.
+
+El resultado final, con la corrección aplicada y el promedio de 10 lecturas, fue el siguiente:
+
+| Distancia real (cm) | Medición corregida (promedio + 2 cm) |
+|---------------------|--------------------------------------|
+| 25                  | 25.58                                |
+| 50                  | 50.04                                |
+| 75                  | 74.76                                |
+| 100                 | 99.28                                |
+
+Dado que el **margen de error resultante fue pequeño** (menor a 1 cm en todos los casos), se consideraron válidas estas mediciones para el funcionamiento del sistema.
+
+Además, se realizaron pruebas adicionales midiendo la distancia hacia superficies de distintos materiales como **pared**, **cartón** y **plástico**, comprobando que las mediciones no variaban significativamente entre ellas. Esto confirma que el sensor es confiable bajo diferentes condiciones de superficie reflectante.
+
+## Calibración y Pruebas del Sensor de Color TCS34725
+
+Experimento 1: Lectura de Datos Crudos
+En esta etapa se realizaron lecturas crudas del sensor utilizando objetos de colores estándar: rojo, verde, azul, blanco y negro. Para asegurar consistencia:
+
+- Se mantuvo una distancia constante de 1 a 2 cm entre el sensor y la muestra.
+- Se tomaron 10 lecturas por cada color.
+- Se trabajó en un ambiente con luz controlada.
+- El LED blanco del sensor estuvo encendido.
+
+**Promedios aproximados de lecturas:**
+
+| Color  | R    | G    | B    | C   |
+| ------ | ---- | ---- | ---- | --- |
+| Rojo   | 9    | 4    | 3    | 18  |
+| Verde  | 3    | 5    | 3    | 11  |
+| Azul   | 5    | 9    | 9    | 24  |
+| Blanco | 17   | 21   | 16   | 54  |
+| Negro  | 0.3  | 0.3  | 0.3  | 1   |
+
+Experimento 2: Normalización de Valores RGB
+Para mejorar la detección y compensar iluminación ambiental, se implementó la normalización RGB:
+
+```
+float fr = (float)r / c;
+float fg = (float)g / c;
+float fb = (float)b / c;
+```
+
+A partir de estos valores se observaron patrones consistentes:
+
+Rojo: fr > 0.5
+
+Verde: fg > 0.45
+
+Azul: fb > 0.45
+
+Blanco: fr, fg y fb > 0.25 y similares entre sí
+
+Negro: c < 2 (muy poca luz)
+
+Experimento 3: Clasificación de Colores
+Se implementó un algoritmo lógico para clasificar colores usando los valores normalizados:
+
+```
+if (c < 2) {
+    // Negro
+} else if (fr > fg + 0.15 && fr > fb + 0.15) {
+    // Rojo
+} else if (fg > fr + 0.10 && fg > fb + 0.10) {
+    // Verde
+} else if (fb > fr + 0.10 && fb > fg + 0.10) {
+    // Azul
+} else if (fr > 0.25 && fg > 0.25 && fb > 0.25) {
+    // Blanco
+}
+```
+El sensor detecta de forma confiable los cinco colores bajo condiciones controladas.
+
+La normalización RGB es fundamental para lograr precisión.
+
+Se descartaron valores de lux y temperatura de color por no aportar a la discriminación efectiva.
+
+El algoritmo final es robusto y efectivo en escenarios de uso básico.
 
 
 ## Preguntas Resueltas Parte 2
