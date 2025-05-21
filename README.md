@@ -218,6 +218,10 @@ Se descartaron valores de lux y temperatura de color por no aportar a la discrim
 
 El algoritmo final es robusto y efectivo en escenarios de uso básico.
 
+## 5. analisis mejoras.
+
+como mejoras podrían planificarse experimentos más exhaustivos como: variar sistemáticamente la intensidad y temperatura de la iluminación (luz cálida, luz fría, luz natural) para evaluar cómo cambian los umbrales de detección de color; probar la respuesta del TCS34725 ante mezclas de colores (por ejemplo amarillo, púrpura y cian) y diferentes matices intermedios; medir la precisión del HC-SR04 a distancias mayores (hasta su rango máximo) y contrastar resultados según ángulo de incidencia (objetos inclinados) y comparar superficies con texturas y reflectividades variadas (madera, metal cepillado, tela).
+
 
 ## Preguntas Resueltas Parte 2
 1. Si el robot detecta el color rojo en el suelo, ¿qué acción debería tomar? ¿Por qué?
