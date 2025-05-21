@@ -249,3 +249,33 @@ Respuesta: Depende del microcontrolador, pero típicamente entre 10–100 ms.
 ## Documentación Parte 2
 
 ---
+
+### 1. Aplicar umbralizaci´on al sensor ultras´onico para detectar si hay un
+obst´aculo a menos de 10cm.
+
+En el archivo 04_UltrasonicoCalibrado_conUmbral.ino se implementó correctamente la detección de obstáculos mediante la aplicación de un umbral de distancia. El sensor ultrasónico realiza múltiples mediciones, promediándolas para mejorar la precisión y reducir el ruido. Posteriormente, se compara la distancia promedio con un umbral definido (10 cm), de manera que cuando un objeto se encuentra a menos de esa distancia, el sistema reconoce la presencia de un obstáculo cercano y emite un mensaje de advertencia en el monitor serial. Esta técnica permite una detección fiable y estable, evitando falsos positivos causados por lecturas erráticas o valores atípicos, mejorando así el desempeño del sensor en aplicaciones prácticas.
+
+---
+
+### 2. Definir umbrales para detectar colores, rojo, verde y azul usando el
+sensor RGB.
+
+Los umbrales para la detección de los colores rojo, verde y azul fueron definidos a partir de los resultados obtenidos en los experimentos realizados en la primera parte del laboratorio. En estos experimentos se analizaron y normalizaron las lecturas crudas del sensor RGB para distintos colores estándar, lo que permitió establecer rangos específicos para cada color. Estos umbrales están implementados y documentados en el código 03_RGBcalibrado.ino, que utiliza las lecturas normalizadas para identificar correctamente cada color con base en las condiciones definidas. Esta calibración garantiza una detección más precisa y confiable del sensor en distintas condiciones.
+
+---
+
+### 3. Implementar un algoritmo en Arduino que detenga el robot ante obst´aculos y cambie de direcci´on seg´un el color detectado.
+
+---
+
+### 4. Probar navegaci´on en un circuito con obst´aculos y superficies en diferentes colores.
+
+---
+
+### 5. Ajustar par´ametros para mejorar la detecci´on y estabilidad del sistema.
+
+---
+
+### 6. Implementaci´on de estrategias de navegaci´on basadas en reglas.
+
+---
