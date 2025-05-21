@@ -119,6 +119,9 @@ Link del video de la prueba en YouTube: https://www.youtube.com/shorts/hn_4I5e5P
 
 ### 3. Programar Arduino para leer los valores RGB y mostrar el color detectado.
 
+Se realizó la implementación del código 02_pruebaRGB.ino, cuyo objetivo fue leer los valores de color (Rojo, Verde y Azul) a través del sensor Adafruit TCS34725. Este sensor fue utilizado junto a la librería oficial de Adafruit, permitiendo obtener lecturas precisas de los componentes de color, así como el valor de luminosidad (canal Clear). Para verificar el correcto funcionamiento del sistema, se emplearon imágenes de colores primarios (rojo, verde y azul), observando que el sensor detectaba correctamente los colores dominantes según el caso. Esto permitió validar tanto el código como el hardware, asegurando una correcta lectura de los datos.
+
+Link del video de prueba: https://www.youtube.com/shorts/BfJy00ZlzRA
 
 ---
 
