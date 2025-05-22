@@ -266,6 +266,11 @@ Los umbrales para la detección de los colores rojo, verde y azul fueron definid
 
 ### 3. Implementar un algoritmo en Arduino que detenga el robot ante obst´aculos y cambie de direcci´on seg´un el color detectado.
 
+Se implemento el algoritmo para que avanzara si no detectaba que estaba mas cerca de 10cm en caso que estuviera mas cerca realizara lo siguiente 
+primero se detendria y mediria el color segun el sensor rgb si es rojo retrocederia si es negro girara a la derecha por el contrario si es verde girara a la izquierda en el caso que el color sea Indefinido se detendra por completo 
+el robot la implementacion de este codigo se puede ver en 05_detectarObstaculo_girarSegunColor.ino en este codigo se reutilizo la calibracion de ambos sensores ya sea el sensor rgb y el sensor ultrasonico para que las mediciones sean 
+lo mas certeras posibles
+
 ---
 
 ### 4. Probar navegaci´on en un circuito con obst´aculos y superficies en diferentes colores.
