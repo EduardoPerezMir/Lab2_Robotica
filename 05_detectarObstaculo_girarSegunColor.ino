@@ -1,16 +1,17 @@
+#include <Wire.h>
+#include "Adafruit_TCS34725.h"
+
 const int ENA = 10;
 const int IN1 = 9;  
-const int IN2 = 8; 
-
+const int IN2 = 8;
 const int IN4 = 7;
 const int IN3 = 6;
 const int ENB = 5;
+
 const int trigPin = 2;
 const int echoPin = 3;
-const int numLecturas = 10;  // Número de lecturas a promediar
+const int numLecturas = 10;
 const float UMBRAL_OBSTACULO = 10.0; 
-#include <Wire.h>
-#include "Adafruit_TCS34725.h"
 
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
@@ -18,10 +19,10 @@ void setup() {
   pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
   pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
   pinMode(ENA, OUTPUT); pinMode(ENB, OUTPUT);
+  pinMode(trigPin, OUTPUT); pinMode(echoPin, INPUT);
+
   Serial.begin(9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  Serial.begin(9600);
+
   if (tcs.begin()) {
     Serial.println("Sensor TCS34725 detectado.");
   } else {
@@ -30,53 +31,45 @@ void setup() {
   }
 }
 
-}
-}
-
 void avanzar(int tiempo, int velocidad) {
   digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
   digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
-  analogWrite(ENA, velocidad);
-  analogWrite(ENB, velocidad);
+  analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
   delay(tiempo);
 }
 
 void retroceder(int tiempo, int velocidad) {
   digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
   digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
-  analogWrite(ENA, velocidad);
-  analogWrite(ENB, velocidad);
+  analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
   delay(tiempo);
 }
 
 void girarDerecha(int tiempo, int velocidad) {
   digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
   digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
-  analogWrite(ENA, velocidad);
-  analogWrite(ENB, velocidad);
+  analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
   delay(tiempo);
 }
 
 void girarIzquierda(int tiempo, int velocidad) {
   digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
-  analogWrite(ENA, velocidad);
-  analogWrite(ENB, velocidad);
+  analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
   delay(tiempo);
 }
 
 void detenerse(int tiempo) {
   digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
-  analogWrite(ENA, 0);
-  analogWrite(ENB, 0);
+  analogWrite(ENA, 0); analogWrite(ENB, 0);
   delay(tiempo);
 }
-string medirColor(){
-   uint16_t r, g, b, c;
+
+String medirColor() {
+  uint16_t r, g, b, c;
   tcs.getRawData(&r, &g, &b, &c);
 
-  // Evitar división por cero
   if (c == 0) c = 1;
 
   float fr = (float)r / c;
@@ -107,45 +100,27 @@ string medirColor(){
   Serial.println(color);
   return color;
 }
+
 float medirDistancia() {
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW); delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH); delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
 
-  long duration = pulseIn(echoPin, HIGH, 30000); 
-  
-  if (duration == 0) {
-    return -1; // No se detectó eco
-  }
+  long duration = pulseIn(echoPin, HIGH, 30000);
+  if (duration == 0) return -1;
 
   float distancia = duration * 0.034 / 2;
-
-  distancia += 2.0; // Compensación fija
-
+  distancia += 2.0;
   return distancia;
 }
 
 void loop() {
-
-  avanzar(3000, 200);
-  detenerse(3000);
-  retroceder(3000, 200);
-  detenerse(3000);
-  girarDerecha(4000, 200);
-  detenerse(3000);
-  girarIzquierda(4000, 200);
-  detenerse(5000);
-
-  if (promedio => UMBRAL_OBSTACULO)avanzar(3000, 200);
   float suma = 0;
   int lecturasValidas = 0;
 
   for (int i = 0; i < numLecturas; i++) {
     float d = medirDistancia();
-    if (d >= 0 && d < 400) { 
+    if (d >= 0 && d < 400) {
       suma += d;
       lecturasValidas++;
     }
@@ -158,18 +133,21 @@ void loop() {
     Serial.print(promedio, 2);
     Serial.println(" cm");
 
-    // Detección de obstáculo cercano
-    if (promedio < UMBRAL_OBSTACULO) {
+    if (promedio >= UMBRAL_OBSTACULO) {
+      avanzar(3000, 200);
+    } else {
       Serial.println("⚠️ ¡Obstáculo detectado a menos de 10 cm!");
       detenerse(3000);
-      if(medirColor()=="Rojo")retroceder(3000, 200);
-      if(medirColor()=="Negro")girarDerecha(4000, 200);
-      if(medirColor()=="Verde")girarIzquierda(4000, 200);
-      if(medirColor()=="Indefinido")detenerse(3000);
-    }
 
+      String color = medirColor();
+
+      if (color == "Rojo") retroceder(3000, 200);
+      else if (color == "Negro") girarDerecha(4000, 200);
+      else if (color == "Verde") girarIzquierda(4000, 200);
+      else detenerse(3000);
+    }
   } else {
-    Serial.println("Sin lectura válida de ultrasonico");
+    Serial.println("Sin lectura válida de ultrasónico");
   }
 
   delay(500);
