@@ -250,37 +250,33 @@ Respuesta: Depende del microcontrolador, pero típicamente entre 10–100 ms.
 
 ---
 
-### 1. Aplicar umbralizaci´on al sensor ultras´onico para detectar si hay un
-obst´aculo a menos de 10cm.
+### 1. Aplicar umbralización al sensor ultrasónico para detectar si hay un obstáculo a menos de 10cm.
 
 En el archivo 04_UltrasonicoCalibrado_conUmbral.ino se implementó correctamente la detección de obstáculos mediante la aplicación de un umbral de distancia. El sensor ultrasónico realiza múltiples mediciones, promediándolas para mejorar la precisión y reducir el ruido. Posteriormente, se compara la distancia promedio con un umbral definido (10 cm), de manera que cuando un objeto se encuentra a menos de esa distancia, el sistema reconoce la presencia de un obstáculo cercano y emite un mensaje de advertencia en el monitor serial. Esta técnica permite una detección fiable y estable, evitando falsos positivos causados por lecturas erráticas o valores atípicos, mejorando así el desempeño del sensor en aplicaciones prácticas.
 
 ---
 
-### 2. Definir umbrales para detectar colores, rojo, verde y azul usando el
-sensor RGB.
+### 2. Definir umbrales para detectar colores, rojo, verde y azul usando el sensor RGB.
 
 Los umbrales para la detección de los colores rojo, verde y azul fueron definidos a partir de los resultados obtenidos en los experimentos realizados en la primera parte del laboratorio. En estos experimentos se analizaron y normalizaron las lecturas crudas del sensor RGB para distintos colores estándar, lo que permitió establecer rangos específicos para cada color. Estos umbrales están implementados y documentados en el código 03_RGBcalibrado.ino, que utiliza las lecturas normalizadas para identificar correctamente cada color con base en las condiciones definidas. Esta calibración garantiza una detección más precisa y confiable del sensor en distintas condiciones.
 
 ---
 
-### 3. Implementar un algoritmo en Arduino que detenga el robot ante obst´aculos y cambie de direcci´on seg´un el color detectado.
+### 3. Implementar un algoritmo en Arduino que detenga el robot ante obstáculos y cambie de dirección según el color detectado.
 
-Se implemento el algoritmo para que avanzara si no detectaba que estaba mas cerca de 10cm en caso que estuviera mas cerca realizara lo siguiente 
-primero se detendria y mediria el color segun el sensor rgb si es rojo retrocederia si es negro girara a la derecha por el contrario si es verde girara a la izquierda en el caso que el color sea Indefinido se detendra por completo 
-el robot la implementacion de este codigo se puede ver en 05_detectarObstaculo_girarSegunColor.ino en este codigo se reutilizo la calibracion de ambos sensores ya sea el sensor rgb y el sensor ultrasonico para que las mediciones sean 
-lo mas certeras posibles
+Se implementó el algoritmo para que avanzara si no detectaba que estaba a menos de 10cm. En caso de que estuviera más cerca, realizaría lo siguiente: primero se detendría y mediría el color según el sensor RGB. Si es rojo, retrocedería; si es negro, giraría a la derecha; por el contrario, si es verde, giraría a la izquierda. En el caso de que el color sea indefinido, se detendrá por completo.  
+La implementación de este código se puede ver en 05_detectarObstaculo_girarSegunColor.ino. En este código se reutilizó la calibración de ambos sensores, tanto el sensor RGB como el sensor ultrasónico, para que las mediciones sean lo más certeras posibles.
 
 ---
 
-### 4. Probar navegaci´on en un circuito con obst´aculos y superficies en diferentes colores.
+### 4. Probar navegación en un circuito con obstáculos y superficies en diferentes colores.
 
 ---
 
-### 5. Ajustar par´ametros para mejorar la detecci´on y estabilidad del sistema.
+### 5. Ajustar parámetros para mejorar la detección y estabilidad del sistema.
 
 ---
 
-### 6. Implementaci´on de estrategias de navegaci´on basadas en reglas.
+### 6. Implementación de estrategias de navegación basadas en reglas.
 
 ---
