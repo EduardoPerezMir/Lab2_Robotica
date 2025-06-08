@@ -290,7 +290,7 @@ Ajustar los parámetros en el codigo puede mejorar la detección de obstáculos,
 
 ● Mejorar la estabilidad de detección de distancia: Ajustar numLecturas, en el codigo se realizan 10 lecturas antes de calcular el promedio. Si se aumenta el número a 15 o 20, se reducira el impacto de lecturas erráticas del sensor ultrasónico
 
-● Optimizar la detección de colore: Modificar el umbral de color negro: Actualmente se evalua si (r == 0 && g == 0 && b == 0 && c < 2). Esto podría fallar si la iluminación es baja. En lugar de c < 2, intentar c < 5 para mejorar la detección en diferentes condiciones.
+● Optimizar la detección de colores: Modificar el umbral de color negro: Actualmente se evalua si c < 2. Esto podría fallar si la iluminación es baja. En lugar de c < 2, intentar c < 5 para mejorar la detección en diferentes condiciones.
 
 ---
 
