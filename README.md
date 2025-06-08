@@ -271,12 +271,45 @@ La implementación de este código se puede ver en 05_detectarObstaculo_girarSeg
 
 ### 4. Probar navegación en un circuito con obstáculos y superficies en diferentes colores.
 
+El algoritmo de navegación para circuitos con obstáculos y superficies de diferentes colores, denominado "05_detectarObstaculo_girarSegunColor.ino", controla el movimiento de un vehículo autónomo en función de su entorno. El vehículo dispone de cinco acciones: avanzar, retroceder, girar a la izquierda, girar a la derecha y detenerse.
+
+Su comportamiento se basa en la detección de obstáculos y el análisis de color. Si hay espacio libre, avanza. En caso de encontrar un obstáculo, se detiene y evalúa el color de la superficie. Según el color detectado, adopta la siguiente respuesta:
+
+Rojo: Retrocede.
+
+Negro: Gira a la derecha.
+
+Verde: Gira a la izquierda.
+
+Otro color o sin identificación clara: Permanece detenido brevemente antes de continuar.
 ---
 
 ### 5. Ajustar parámetros para mejorar la detección y estabilidad del sistema.
 
+Ajustar los parámetros en el codigo puede mejorar la detección de obstáculos, la precisión del reconocimiento de colores y la estabilidad del sistema. A continuacion algunos cambios y sus posibles efectos en base al codigo "05_detectarObstaculo_girarSegunColor.ino":
+
+Mejorar la estabilidad de detección de distancia: Ajustar numLecturas, en el codigo se realizan 10 lecturas antes de calcular el promedio. Si se aumenta el número a 15 o 20, se reducira el impacto de lecturas erráticas del sensor ultrasónico
+
+Optimizar la detección de colore: Modificar el umbral de color negro: Actualmente se evalua si (r == 0 && g == 0 && b == 0 && c < 2). Esto podría fallar si la iluminación es baja. En lugar de c < 2, intentar c < 5 para mejorar la detección en diferentes condiciones.
+
 ---
 
 ### 6. Implementación de estrategias de navegación basadas en reglas.
+
+La Implementación de estrategias de navegación basadas en reglas se refleja en:
+
+Si no hay obstáculos cerca, el vehículo avanza: Esto se determina comparando la distancia promedio con un umbral de seguridad. Si es mayor o igual, el vehículo sigue adelante.
+
+Si hay un obstáculo cerca, el vehículo se detiene por 3 segundos y analiza el color del entorno: Se mide la distancia varias veces y si el promedio es menor al umbral, se detiene.
+
+Dependiendo del color detectado, el vehículo reacciona de diferentes maneras:
+Rojo: Retrocede por un tiempo determinado.
+Negro: Gira a la derecha.
+Verde: Gira a la izquierda.
+Cualquier otro color: Se detiene durante 2 segundos.
+
+Después de realizar una acción basada en el color, el vehículo se detiene brevemente antes de continuar: Esto evita movimientos bruscos y permite que vuelva a evaluar su entorno.
+
+El proceso se repite continuamente: Se mide distancia, se actúa según las condiciones, y el vehículo sigue moviéndose en función de obstáculos y colores.
 
 ---
