@@ -275,22 +275,22 @@ El algoritmo de navegación para circuitos con obstáculos y superficies de dife
 
 Su comportamiento se basa en la detección de obstáculos y el análisis de color. Si hay espacio libre, avanza. En caso de encontrar un obstáculo, se detiene y evalúa el color de la superficie. Según el color detectado, adopta la siguiente respuesta:
 
-Rojo: Retrocede.
+● Rojo: Retrocede.
 
-Negro: Gira a la derecha.
+● Negro: Gira a la derecha.
 
-Verde: Gira a la izquierda.
+● Verde: Gira a la izquierda.
 
-Otro color o sin identificación clara: Permanece detenido brevemente antes de continuar.
+● Otro color o sin identificación clara: Permanece detenido brevemente antes de continuar.
 ---
 
 ### 5. Ajustar parámetros para mejorar la detección y estabilidad del sistema.
 
 Ajustar los parámetros en el codigo puede mejorar la detección de obstáculos, la precisión del reconocimiento de colores y la estabilidad del sistema. A continuacion algunos cambios y sus posibles efectos en base al codigo "05_detectarObstaculo_girarSegunColor.ino":
 
-Mejorar la estabilidad de detección de distancia: Ajustar numLecturas, en el codigo se realizan 10 lecturas antes de calcular el promedio. Si se aumenta el número a 15 o 20, se reducira el impacto de lecturas erráticas del sensor ultrasónico
+● Mejorar la estabilidad de detección de distancia: Ajustar numLecturas, en el codigo se realizan 10 lecturas antes de calcular el promedio. Si se aumenta el número a 15 o 20, se reducira el impacto de lecturas erráticas del sensor ultrasónico
 
-Optimizar la detección de colore: Modificar el umbral de color negro: Actualmente se evalua si (r == 0 && g == 0 && b == 0 && c < 2). Esto podría fallar si la iluminación es baja. En lugar de c < 2, intentar c < 5 para mejorar la detección en diferentes condiciones.
+● Optimizar la detección de colore: Modificar el umbral de color negro: Actualmente se evalua si (r == 0 && g == 0 && b == 0 && c < 2). Esto podría fallar si la iluminación es baja. En lugar de c < 2, intentar c < 5 para mejorar la detección en diferentes condiciones.
 
 ---
 
@@ -298,18 +298,24 @@ Optimizar la detección de colore: Modificar el umbral de color negro: Actualmen
 
 La Implementación de estrategias de navegación basadas en reglas se refleja en:
 
-Si no hay obstáculos cerca, el vehículo avanza: Esto se determina comparando la distancia promedio con un umbral de seguridad. Si es mayor o igual, el vehículo sigue adelante.
+● Si no hay obstáculos cerca, el vehículo avanza: Esto se determina comparando la distancia promedio con un umbral de seguridad. Si es mayor o igual, el vehículo sigue adelante.
 
-Si hay un obstáculo cerca, el vehículo se detiene por 3 segundos y analiza el color del entorno: Se mide la distancia varias veces y si el promedio es menor al umbral, se detiene.
+● Si hay un obstáculo cerca, el vehículo se detiene por 3 segundos y analiza el color del entorno: Se mide la distancia varias veces y si el promedio es menor al umbral, se detiene.
 
-Dependiendo del color detectado, el vehículo reacciona de diferentes maneras:
-Rojo: Retrocede por un tiempo determinado.
-Negro: Gira a la derecha.
-Verde: Gira a la izquierda.
-Cualquier otro color: Se detiene durante 2 segundos.
+● Dependiendo del color detectado, el vehículo reacciona de diferentes maneras:
+● Rojo: Retrocede por un tiempo determinado.
+● Negro: Gira a la derecha.
+● Verde: Gira a la izquierda.
+● Cualquier otro color: Se detiene durante 2 segundos.
 
-Después de realizar una acción basada en el color, el vehículo se detiene brevemente antes de continuar: Esto evita movimientos bruscos y permite que vuelva a evaluar su entorno.
+● Después de realizar una acción basada en el color, el vehículo se detiene brevemente antes de continuar: Esto evita movimientos bruscos y permite que vuelva a evaluar su entorno.
 
-El proceso se repite continuamente: Se mide distancia, se actúa según las condiciones, y el vehículo sigue moviéndose en función de obstáculos y colores.
+● El proceso se repite continuamente: Se mide distancia, se actúa según las condiciones, y el vehículo sigue moviéndose en función de obstáculos y colores.
+
+---
+
+### Reflexión sobre posibles mejoras en la detección.
+
+El sistema de detección podría mejorar optimizando el filtrado de lecturas ultrasónicas para reducir falsas mediciones y agregando un algoritmo más preciso de clasificación de colores, considerando una mayor cantidad de muestras y ajustes en la interpretación de tonalidades. Además, se podría complementar la detección con sensores adicionales, como cámaras para un análisis más avanzado del entorno, lo que permitiría decisiones más inteligentes y adaptativas en la navegación del vehículo.
 
 ---
