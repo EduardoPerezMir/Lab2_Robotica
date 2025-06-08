@@ -319,8 +319,8 @@ La Implementación de estrategias de navegación basadas en reglas se refleja en
 
 ---
 
-### 7. Evidencia en video del funcionamiento del robot según las reglas programadas
-En el siguiente video se puede observar el comportamiento del robot móvil autónomo mientras navega por un circuito que incluye obstáculos físicos y superficies de distintos colores. El robot aplica de manera efectiva las reglas definidas: avanza mientras no detecte obstáculos, y al encontrarse con uno a menos de 10 cm, se detiene y analiza el color de la superficie bajo él. Según el color detectado, reacciona adecuadamente. El video demuestra la integración exitosa de los sensores ultrasónico y RGB calibrados, así como la ejecución fluida del algoritmo de control.
+### 7. Evidencia en video del funcionamiento del robot según las reglas programadas (05_detectarObstaculo_girarSegunColor.ino)
+En el siguiente video se puede observar el comportamiento del robot móvil autónomo mientras navega por un circuito que incluye obstáculos físicos y superficies de distintos colores. El robot aplica de manera efectiva las reglas definidas: avanza mientras no detecte obstáculos, y al encontrarse con uno a menos de 10 cm, se detiene y analiza el color de la superficie bajo él. Según el color detectado, reacciona adecuadamente. El video demuestra la integración exitosa de los sensores ultrasónico y RGB calibrados, así como la ejecución fluida del algoritmo de control. 
 [video de funcionamiento del robot](https://www.youtube.com/watch?v=u3H2w4WpQEs)
 
 ---
