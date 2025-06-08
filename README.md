@@ -250,7 +250,7 @@ Respuesta: Depende del microcontrolador, pero típicamente entre 10–100 ms.
 
 ---
 
-### 1. Aplicar umbralización al sensor ultrasónico para detectar si hay un obstáculo a menos de 35cm.
+### 1. Aplicar umbralización al sensor ultrasónico para detectar si hay un obstáculo a menos de 10cm.
 
 En el archivo 04_UltrasonicoCalibrado_conUmbral.ino se implementó correctamente la detección de obstáculos mediante la aplicación de un umbral de distancia. El sensor ultrasónico realiza múltiples mediciones, promediándolas para mejorar la precisión y reducir el ruido. Posteriormente, se compara la distancia promedio con un umbral definido (10 cm), de manera que cuando un objeto se encuentra a menos de esa distancia, el sistema reconoce la presencia de un obstáculo cercano y emite un mensaje de advertencia en el monitor serial. Esta técnica permite una detección fiable y estable, evitando falsos positivos causados por lecturas erráticas o valores atípicos, mejorando así el desempeño del sensor en aplicaciones prácticas.
 
