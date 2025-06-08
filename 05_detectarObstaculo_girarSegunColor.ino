@@ -11,7 +11,7 @@ const int ENB = 5;
 const int trigPin = 2;
 const int echoPin = 3;
 const int numLecturas = 10;
-const float UMBRAL_OBSTACULO = 10.0; 
+const float UMBRAL_OBSTACULO = 35.0; 
 
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
@@ -31,11 +31,10 @@ void setup() {
   }
 }
 
-void avanzar(int tiempo, int velocidad) {
+void avanzar(int velocidad) {
   digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
   digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
   analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
-  delay(tiempo);
 }
 
 void retroceder(int tiempo, int velocidad) {
@@ -46,15 +45,15 @@ void retroceder(int tiempo, int velocidad) {
 }
 
 void girarDerecha(int tiempo, int velocidad) {
-  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
-  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
   analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
   delay(tiempo);
 }
 
 void girarIzquierda(int tiempo, int velocidad) {
-  digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
-  digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+  digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
   analogWrite(ENA, velocidad); analogWrite(ENB, velocidad);
   delay(tiempo);
 }
@@ -79,21 +78,30 @@ String medirColor() {
   Serial.print("R: "); Serial.print(r);
   Serial.print(" G: "); Serial.print(g);
   Serial.print(" B: "); Serial.print(b);
-  Serial.print(" C: "); Serial.println(c);
+  Serial.print(" C: "); Serial.print(c);
+  Serial.print(" | fr: "); Serial.print(fr, 2);
+  Serial.print(" fg: "); Serial.print(fg, 2);
+  Serial.print(" fb: "); Serial.println(fb, 2);
 
   String color = "Indefinido";
 
-  if (c < 2) {
+  if (r == 0 && g == 0 && b == 0 && c < 2) {
     color = "Negro";
-  } else if (fr > fg + 0.15 && fr > fb + 0.15) {
-    color = "Rojo";
-  } else if (fg > fr + 0.10 && fg > fb + 0.10) {
-    color = "Verde";
-  } else if (fb > fr + 0.10 && fb > fg + 0.10) {
-    color = "Azul";
-  } else if (fr > 0.25 && fg > 0.25 && fb > 0.25 &&
-             abs(fr - fg) < 0.05 && abs(fg - fb) < 0.05) {
+  }
+  else if (fr > 0.3 && fg > 0.3 && fb > 0.3 &&
+           abs(fr - fg) < 0.05 && abs(fg - fb) < 0.05) {
     color = "Blanco";
+  }
+  else if (fr >= fg && fr >= fb) {
+      color = "Rojo";
+    }
+  // 4. VERDE: verde dominante
+  else if (fg >= fr && fg >= fb) {
+    color = "Verde";
+  }
+  // 5. AZUL: azul dominante
+  else if (fb >= fr && fb >= fg) {
+    color = "Azul";
   }
 
   Serial.print("Color detectado: ");
@@ -124,31 +132,36 @@ void loop() {
       suma += d;
       lecturasValidas++;
     }
-    delay(50);
+    delay(10);
   }
 
   if (lecturasValidas > 0) {
     float promedio = suma / lecturasValidas;
-    Serial.print("Distancia promedio corregida: ");
+    Serial.print("Distancia promedio: ");
     Serial.print(promedio, 2);
     Serial.println(" cm");
 
     if (promedio >= UMBRAL_OBSTACULO) {
-      avanzar(3000, 200);
+      avanzar(150);
     } else {
-      Serial.println("⚠️ ¡Obstáculo detectado a menos de 10 cm!");
+      Serial.println("⚠️ ¡Obstáculo detectado!");
       detenerse(3000);
-
+      delay(100);
       String color = medirColor();
 
-      if (color == "Rojo") retroceder(3000, 200);
-      else if (color == "Negro") girarDerecha(4000, 200);
-      else if (color == "Verde") girarIzquierda(4000, 200);
-      else detenerse(3000);
+      if (color == "Rojo") retroceder(1400, 150);
+      else if (color == "Negro") girarDerecha(490, 150);
+      else if (color == "Verde") girarIzquierda(490, 150);
+      else 
+      {
+        detenerse(2000);
+      }
+      detenerse(1000);
+
     }
+    delay(500);
+
   } else {
     Serial.println("Sin lectura válida de ultrasónico");
   }
-
-  delay(500);
 }
