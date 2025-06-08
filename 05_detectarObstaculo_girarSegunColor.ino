@@ -11,7 +11,7 @@ const int ENB = 5;
 const int trigPin = 2;
 const int echoPin = 3;
 const int numLecturas = 10;
-const float UMBRAL_OBSTACULO = 10.0; 
+const float UMBRAL_OBSTACULO = 35.0; 
 
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
