@@ -250,7 +250,7 @@ Respuesta: Depende del microcontrolador, pero típicamente entre 10–100 ms.
 
 ---
 
-### 1. Aplicar umbralización al sensor ultrasónico para detectar si hay un obstáculo a menos de 10cm.
+### 1. Aplicar umbralización al sensor ultrasónico para detectar si hay un obstáculo a menos de 35cm.
 
 En el archivo 04_UltrasonicoCalibrado_conUmbral.ino se implementó correctamente la detección de obstáculos mediante la aplicación de un umbral de distancia. El sensor ultrasónico realiza múltiples mediciones, promediándolas para mejorar la precisión y reducir el ruido. Posteriormente, se compara la distancia promedio con un umbral definido (10 cm), de manera que cuando un objeto se encuentra a menos de esa distancia, el sistema reconoce la presencia de un obstáculo cercano y emite un mensaje de advertencia en el monitor serial. Esta técnica permite una detección fiable y estable, evitando falsos positivos causados por lecturas erráticas o valores atípicos, mejorando así el desempeño del sensor en aplicaciones prácticas.
 
@@ -264,7 +264,7 @@ Los umbrales para la detección de los colores rojo, verde y azul fueron definid
 
 ### 3. Implementar un algoritmo en Arduino que detenga el robot ante obstáculos y cambie de dirección según el color detectado.
 
-Se implementó el algoritmo para que avanzara si no detectaba que estaba a menos de 10cm. En caso de que estuviera más cerca, realizaría lo siguiente: primero se detendría y mediría el color según el sensor RGB. Si es rojo, retrocedería; si es negro, giraría a la derecha; por el contrario, si es verde, giraría a la izquierda. En el caso de que el color sea indefinido, se detendrá por completo.  
+Se implementó el algoritmo para que avanzara si no detectaba que estaba a menos de 35cm. En caso de que estuviera más cerca, realizaría lo siguiente: primero se detendría y mediría el color según el sensor RGB. Si es rojo, retrocedería; si es negro, giraría a la derecha; por el contrario, si es verde, giraría a la izquierda. En el caso de que el color sea indefinido, se detendrá por completo.  
 La implementación de este código se puede ver en 05_detectarObstaculo_girarSegunColor.ino. En este código se reutilizó la calibración de ambos sensores, tanto el sensor RGB como el sensor ultrasónico, para que las mediciones sean lo más certeras posibles.
 
 ---
@@ -282,6 +282,7 @@ Su comportamiento se basa en la detección de obstáculos y el análisis de colo
 ● Verde: Gira a la izquierda.
 
 ● Otro color o sin identificación clara: Permanece detenido brevemente antes de continuar.
+
 ---
 
 ### 5. Ajustar parámetros para mejorar la detección y estabilidad del sistema.
@@ -303,9 +304,13 @@ La Implementación de estrategias de navegación basadas en reglas se refleja en
 ● Si hay un obstáculo cerca, el vehículo se detiene por 3 segundos y analiza el color del entorno: Se mide la distancia varias veces y si el promedio es menor al umbral, se detiene.
 
 ● Dependiendo del color detectado, el vehículo reacciona de diferentes maneras:
+
 ● Rojo: Retrocede por un tiempo determinado.
+
 ● Negro: Gira a la derecha.
+
 ● Verde: Gira a la izquierda.
+
 ● Cualquier otro color: Se detiene durante 2 segundos.
 
 ● Después de realizar una acción basada en el color, el vehículo se detiene brevemente antes de continuar: Esto evita movimientos bruscos y permite que vuelva a evaluar su entorno.
@@ -315,7 +320,7 @@ La Implementación de estrategias de navegación basadas en reglas se refleja en
 ---
 
 ### 7. Evidencia en video del funcionamiento del robot según las reglas programadas
-En el siguiente video se puede observar el comportamiento del robot móvil autónomo mientras navega por un circuito que incluye obstáculos físicos y superficies de distintos colores. El robot aplica de manera efectiva las reglas definidas: avanza mientras no detecte obstáculos, y al encontrarse con uno a menos de 10 cm, se detiene y analiza el color de la superficie frente a él. Según el color detectado, reacciona adecuadamente. El video demuestra la integración exitosa de los sensores ultrasónico y RGB calibrados, así como la ejecución fluida del algoritmo de control.
+En el siguiente video se puede observar el comportamiento del robot móvil autónomo mientras navega por un circuito que incluye obstáculos físicos y superficies de distintos colores. El robot aplica de manera efectiva las reglas definidas: avanza mientras no detecte obstáculos, y al encontrarse con uno a menos de 10 cm, se detiene y analiza el color de la superficie bajo él. Según el color detectado, reacciona adecuadamente. El video demuestra la integración exitosa de los sensores ultrasónico y RGB calibrados, así como la ejecución fluida del algoritmo de control.
 [video de funcionamiento del robot](https://www.youtube.com/watch?v=u3H2w4WpQEs)
 
 ---
