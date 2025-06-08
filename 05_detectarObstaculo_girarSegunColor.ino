@@ -11,7 +11,7 @@ const int ENB = 5;
 const int trigPin = 2;
 const int echoPin = 3;
 const int numLecturas = 10;
-const float UMBRAL_OBSTACULO = 35.0; 
+const float UMBRAL_OBSTACULO = 10.0; 
 
 Adafruit_TCS34725 tcs = Adafruit_TCS34725();
 
@@ -85,23 +85,17 @@ String medirColor() {
 
   String color = "Indefinido";
 
-  if (r == 0 && g == 0 && b == 0 && c < 2) {
+  if (c < 2) {
     color = "Negro";
-  }
-  else if (fr > 0.3 && fg > 0.3 && fb > 0.3 &&
-           abs(fr - fg) < 0.05 && abs(fg - fb) < 0.05) {
-    color = "Blanco";
-  }
-  else if (fr >= fg && fr >= fb) {
-      color = "Rojo";
-    }
-  // 4. VERDE: verde dominante
-  else if (fg >= fr && fg >= fb) {
+  } else if (fr > fg + 0.15 && fr > fb + 0.15) {
+    color = "Rojo";
+  } else if (fg > fr + 0.10 && fg > fb + 0.10) {
     color = "Verde";
-  }
-  // 5. AZUL: azul dominante
-  else if (fb >= fr && fb >= fg) {
+  } else if (fb > fr + 0.10 && fb > fg + 0.10) {
     color = "Azul";
+  } else if (fr > 0.25 && fg > 0.25 && fb > 0.25 &&
+             abs(fr - fg) < 0.05 && abs(fg - fb) < 0.05) {
+    color = "Blanco";
   }
 
   Serial.print("Color detectado: ");
